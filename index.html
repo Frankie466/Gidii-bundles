@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service.starlink.ke</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f9b0f, #000000);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            color: #333;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #148122;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .payment-info {
+            margin-bottom: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #444;
+            background: linear-gradient(90deg, #e0f7da, #c8e6c9);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 5px solid #148122;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        .package-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        button {
+            border: none;
+            padding: 15px;
+            font-size: 17px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        button:hover::before {
+            left: 100%;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        button:active {
+            transform: translateY(-1px);
+        }
+        .payment-btn {
+            background: linear-gradient(135deg, #148122, #0f7b0f);
+            color: #ffffff;
+            border: 2px solid transparent;
+        }
+        .payment-btn:hover {
+            background: linear-gradient(135deg, #0f7b0f, #0c6c0c);
+            border-color: #ffffff;
+        }
+        .inquiry {
+            margin-top: 25px;
+            font-size: 16px;
+            color: #444;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dee2e6;
+        }
+        .email {
+            color: #007bff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background: rgba(0, 123, 255, 0.1);
+        }
+        .email:hover {
+            color: #0056b3;
+            text-decoration: underline;
+            background: rgba(0, 123, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .starlink-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #148122;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            font-size: 28px;
+        }
+        .secure-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Custom Payment Instructions Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInModal 0.3s ease-out;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .payment-modal-content {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            animation: slideInModal 0.4s ease-out;
+            border: 3px solid #148122;
+        }
+        @keyframes slideInModal {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .payment-modal-header {
+            background: linear-gradient(135deg, #148122, #0f7b0f);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            margin: -30px -30px 25px -30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .payment-icon {
+            font-size: 32px;
+        }
+        .payment-modal h2 {
+            margin: 0;
+            font-size: 24px;
+            color: white;
+        }
+        .payment-modal-body {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .instruction-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f1f8e9;
+            border-radius: 10px;
+            border-left: 5px solid #148122;
+        }
+        .step-number {
+            background: #148122;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-text {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .step-text strong {
+            color: #148122;
+        }
+        .important-note {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .secure-info {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            border-radius: 10px;
+            color: #0c5460;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .proceed-btn {
+            background: linear-gradient(135deg, #148122, #0f7b0f);
+            color: white;
+        }
+        .proceed-btn:hover {
+            background: linear-gradient(135deg, #0f7b0f, #0c6c0c);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(20, 129, 34, 0.4);
+        }
+        .cancel-btn {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+        }
+        .cancel-btn:hover {
+            background: linear-gradient(135deg, #495057, #343a40);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+        .amount-highlight {
+            background: linear-gradient(135deg, #ffd700, #ff9800);
+            padding: 8px 15px;
+            border-radius: 25px;
+            color: #333;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 0;
+            box-shadow: 0 3px 6px rgba(255, 152, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="starlink-logo">
+            <span class="logo-icon">🛰️</span>
+            Service.starlink.ke
+        </div>
+        <h1>Select Your Internet Package</h1>
+        <div class="payment-info">Starlink Home <i>(Safaricom Only)</i></div>
+        
+        <div class="package-grid">
+            <button class="payment-btn" onclick="showPaymentInstructions(69)">
+                <strong>24 Hours</strong> - 2GB (Ksh 69)
+            </button>
+            <button class="payment-btn" onclick="showPaymentInstructions(129)">
+                <strong>3 Days</strong> - 5GB (Ksh 129)
+            </button>
+            <button class="payment-btn" onclick="showPaymentInstructions(199)">
+                <strong>7 Days</strong> - 10GB (Ksh 199)
+            </button>
+            <button class="payment-btn" onclick="showPaymentInstructions(299)">
+                <strong>14 Days</strong> - 18GB (Ksh 299)
+            </button>
+            <button class="payment-btn" onclick="showPaymentInstructions(399)">
+                <strong>30 Days</strong> - 30GB (Ksh 399)
+            </button>
+        </div>
+
+        <div class="secure-badge">🔒 Secure Payment</div>
+
+        <div class="inquiry">
+            <p>In case of inquiry, contact us at:</p>
+            <a href="mailto:support@starlink.ke" class="email">support@starlink.ke</a>
+            <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                We respond within 24 hours
+            </p>
+        </div>
+    </div>
+
+    <!-- Custom Payment Instructions Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-modal-content">
+            <div class="payment-modal-header">
+                <span class="payment-icon">🔒</span>
+                <h2>Payment Instructions</h2>
+            </div>
+            
+            <div class="payment-modal-body">
+                <p style="text-align: center; margin-bottom: 20px; font-size: 18px; color: #148122; font-weight: bold;">
+                    You are being redirected to a secure payment page
+                </p>
+                
+                <div class="instruction-step">
+                    <div class="step-number">1</div>
+                    <div class="step-text">
+                        <strong>Enter your phone number</strong><br>
+                        Use the phone number registered with your M-Pesa account
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">2</div>
+                    <div class="step-text">
+                        <strong>Enter the exact amount:</strong><br>
+                        <div class="amount-highlight" id="amountDisplay">Ksh 0</div>
+                        Must match the selected package
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">3</div>
+                    <div class="step-text">
+                        <strong>Input your M-Pesa PIN</strong><br>
+                        Complete the transaction securely
+                    </div>
+                </div>
+                
+                <div class="important-note">
+                    ⚠️ <strong>Important:</strong> Ensure the amount entered matches exactly as shown above. 
+                    Incorrect amounts may delay activation.
+                </div>
+                
+                <div class="secure-info">
+                    🔐 <span>Your payment is 100% secure and encrypted</span>
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn cancel-btn" onclick="closePaymentModal()">Cancel</button>
+                <button class="modal-btn proceed-btn" onclick="redirectToPayment()">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedAmount = 0;
+        const paymentUrl = "https://me.nestlink.co.ke/Maramkopo";
+
+        function showPaymentInstructions(amount) {
+            selectedAmount = amount;
+            document.getElementById('amountDisplay').textContent = `Ksh ${amount}`;
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function redirectToPayment() {
+            closePaymentModal();
+            window.location.href = paymentUrl;
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePaymentModal();
+            }
+        });
+    </script>
+</body>
+</html>
