@@ -2,90 +2,129 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Service.starlink.ke</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #0f9b0f, #000000);
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             color: #fff;
+            min-height: 100vh;
+            padding-top: 60px;
+            padding-bottom: 20px;
         }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #0c6c0c, #000000);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            height: 60px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+        .logo-icon {
+            font-size: 24px;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
         .container {
             background-color: #ffffff;
-            padding: 30px;
-            border-radius: 16px;
+            padding: 20px;
+            border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             text-align: center;
             max-width: 450px;
             width: 90%;
             color: #333;
             animation: fadeIn 0.5s ease-in;
+            margin: 0 auto;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         h1 {
-            font-size: 28px;
-            margin-bottom: 25px;
+            font-size: 22px;
+            margin-bottom: 15px;
             color: #148122;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .payment-info {
-            margin-bottom: 25px;
-            font-size: 18px;
+            margin-bottom: 15px;
+            font-size: 16px;
             font-weight: bold;
             color: #444;
             background: linear-gradient(90deg, #e0f7da, #c8e6c9);
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-            border-left: 5px solid #148122;
+            border-left: 4px solid #148122;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         }
         .package-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
         button {
             border: none;
-            padding: 15px;
-            font-size: 17px;
-            border-radius: 10px;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 8px;
             cursor: pointer;
             width: 100%;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        button:hover::before {
-            left: 100%;
         }
         button:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        button:active {
-            transform: translateY(-1px);
         }
         .payment-btn {
             background: linear-gradient(135deg, #148122, #0f7b0f);
@@ -97,12 +136,12 @@
             border-color: #ffffff;
         }
         .inquiry {
-            margin-top: 25px;
-            font-size: 16px;
+            margin-top: 20px;
+            font-size: 14px;
             color: #444;
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
             border: 1px solid #dee2e6;
         }
@@ -112,7 +151,7 @@
             text-decoration: none;
             transition: all 0.3s ease;
             display: inline-block;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 4px;
             background: rgba(0, 123, 255, 0.1);
         }
@@ -120,33 +159,19 @@
             color: #0056b3;
             text-decoration: underline;
             background: rgba(0, 123, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        .starlink-logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #148122;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .logo-icon {
-            font-size: 28px;
         }
         .secure-badge {
             display: inline-block;
             background: #28a745;
             color: white;
-            padding: 5px 15px;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 13px;
             margin-top: 10px;
             font-weight: 600;
         }
 
-        /* Custom Payment Instructions Modal Styles */
+        /* Compact Payment Instructions Modal for Small Phones */
         .payment-modal {
             display: none;
             position: fixed;
@@ -154,117 +179,144 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: fadeInModal 0.3s ease-out;
-        }
-        @keyframes fadeInModal {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            padding: 15px;
+            overflow-y: auto;
         }
         .payment-modal-content {
             background: linear-gradient(135deg, #ffffff, #f8f9fa);
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
+            padding: 20px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 85vh;
+            overflow-y: auto;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            animation: slideInModal 0.4s ease-out;
-            border: 3px solid #148122;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #148122;
+            animation: slideUp 0.3s ease-out;
         }
-        @keyframes slideInModal {
-            from { transform: translateY(-30px); opacity: 0; }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         .payment-modal-header {
             background: linear-gradient(135deg, #148122, #0f7b0f);
             color: white;
-            padding: 20px;
-            border-radius: 15px 15px 0 0;
-            margin: -30px -30px 25px -30px;
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
+            margin: -20px -20px 15px -20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
         .payment-icon {
-            font-size: 32px;
+            font-size: 24px;
         }
         .payment-modal h2 {
             margin: 0;
-            font-size: 24px;
+            font-size: 20px;
             color: white;
+        }
+        .close-modal {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
         .payment-modal-body {
             text-align: left;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
         .instruction-step {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 12px;
+            padding: 12px;
             background: #f1f8e9;
-            border-radius: 10px;
-            border-left: 5px solid #148122;
+            border-radius: 8px;
+            border-left: 4px solid #148122;
         }
         .step-number {
             background: #148122;
             color: white;
-            width: 32px;
-            height: 32px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            margin-right: 12px;
             font-weight: bold;
+            font-size: 14px;
             flex-shrink: 0;
         }
         .step-text {
             color: #333;
-            font-size: 16px;
-            line-height: 1.5;
+            font-size: 14px;
+            line-height: 1.4;
         }
         .step-text strong {
             color: #148122;
+            font-size: 15px;
         }
         .important-note {
             background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
             color: #856404;
+            font-size: 13px;
         }
         .secure-info {
             background: #d1ecf1;
-            border-left: 5px solid #17a2b8;
-            padding: 15px;
-            border-radius: 10px;
+            border-left: 4px solid #17a2b8;
+            padding: 12px;
+            border-radius: 8px;
             color: #0c5460;
             font-weight: 600;
+            font-size: 13px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .modal-buttons {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 20px;
         }
         .modal-btn {
             flex: 1;
-            padding: 15px;
-            font-size: 16px;
+            padding: 12px;
+            font-size: 15px;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-height: 44px;
         }
         .proceed-btn {
             background: linear-gradient(135deg, #148122, #0f7b0f);
@@ -273,7 +325,6 @@
         .proceed-btn:hover {
             background: linear-gradient(135deg, #0f7b0f, #0c6c0c);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(20, 129, 34, 0.4);
         }
         .cancel-btn {
             background: linear-gradient(135deg, #6c757d, #495057);
@@ -282,26 +333,136 @@
         .cancel-btn:hover {
             background: linear-gradient(135deg, #495057, #343a40);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
         }
         .amount-highlight {
             background: linear-gradient(135deg, #ffd700, #ff9800);
-            padding: 8px 15px;
-            border-radius: 25px;
+            padding: 6px 12px;
+            border-radius: 20px;
             color: #333;
             font-weight: bold;
             display: inline-block;
-            margin: 5px 0;
-            box-shadow: 0 3px 6px rgba(255, 152, 0, 0.3);
+            margin: 4px 0;
+            font-size: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 15px;
+                height: 55px;
+            }
+            .nav-logo {
+                font-size: 16px;
+            }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, #0c6c0c, #000000);
+                flex-direction: column;
+                padding: 15px;
+                gap: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-item {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .container {
+                padding: 15px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            .payment-info {
+                font-size: 15px;
+                padding: 8px;
+            }
+            button {
+                padding: 12px;
+                font-size: 15px;
+            }
+            .payment-modal-content {
+                padding: 15px;
+                max-height: 90vh;
+            }
+            .payment-modal-header {
+                padding: 12px;
+            }
+            .payment-modal h2 {
+                font-size: 18px;
+            }
+            .instruction-step {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            .step-text {
+                font-size: 13px;
+            }
+            .step-text strong {
+                font-size: 14px;
+            }
+            .modal-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .container {
+                padding: 12px;
+            }
+            h1 {
+                font-size: 18px;
+            }
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+            .payment-modal-content {
+                padding: 12px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            button, .modal-btn, .nav-item {
+                min-height: 44px;
+            }
+            button:hover, .modal-btn:hover {
+                transform: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="starlink-logo">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-logo">
             <span class="logo-icon">🛰️</span>
-            Service.starlink.ke
+            Starlink Kenya
         </div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="nav-menu" id="navMenu">
+            <a href="#" class="nav-item">Home</a>
+            <a href="#packages" class="nav-item">Packages</a>
+            <a href="#support" class="nav-item">Support</a>
+            <a href="#about" class="nav-item">About</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
         <h1>Select Your Internet Package</h1>
         <div class="payment-info">Starlink Home <i>(Safaricom Only)</i></div>
         
@@ -328,57 +489,57 @@
         <div class="inquiry">
             <p>In case of inquiry, contact us at:</p>
             <a href="mailto:support@starlink.ke" class="email">support@starlink.ke</a>
-            <p style="margin-top: 10px; font-size: 14px; color: #666;">
+            <p style="margin-top: 10px; font-size: 13px; color: #666;">
                 We respond within 24 hours
             </p>
         </div>
     </div>
 
-    <!-- Custom Payment Instructions Modal -->
+    <!-- Compact Payment Instructions Modal -->
     <div class="payment-modal" id="paymentModal">
         <div class="payment-modal-content">
             <div class="payment-modal-header">
                 <span class="payment-icon">🔒</span>
                 <h2>Payment Instructions</h2>
+                <button class="close-modal" onclick="closePaymentModal()">×</button>
             </div>
             
             <div class="payment-modal-body">
-                <p style="text-align: center; margin-bottom: 20px; font-size: 18px; color: #148122; font-weight: bold;">
-                    You are being redirected to a secure payment page
+                <p style="text-align: center; margin-bottom: 15px; font-size: 16px; color: #148122; font-weight: bold;">
+                    Secure Payment Page
                 </p>
                 
                 <div class="instruction-step">
                     <div class="step-number">1</div>
                     <div class="step-text">
-                        <strong>Enter your phone number</strong><br>
-                        Use the phone number registered with your M-Pesa account
+                        <strong>Enter phone number</strong><br>
+                        Registered M-Pesa number
                     </div>
                 </div>
                 
                 <div class="instruction-step">
                     <div class="step-number">2</div>
                     <div class="step-text">
-                        <strong>Enter the exact amount:</strong><br>
+                        <strong>Enter exact amount:</strong><br>
                         <div class="amount-highlight" id="amountDisplay">Ksh 0</div>
-                        Must match the selected package
+                        Must match selected package
                     </div>
                 </div>
                 
                 <div class="instruction-step">
                     <div class="step-number">3</div>
                     <div class="step-text">
-                        <strong>Input your M-Pesa PIN</strong><br>
-                        Complete the transaction securely
+                        <strong>Enter M-Pesa PIN</strong><br>
+                        Complete transaction
                     </div>
                 </div>
                 
                 <div class="important-note">
-                    ⚠️ <strong>Important:</strong> Ensure the amount entered matches exactly as shown above. 
-                    Incorrect amounts may delay activation.
+                    ⚠️ <strong>Important:</strong> Enter exact amount shown. Incorrect amounts may delay activation.
                 </div>
                 
                 <div class="secure-info">
-                    🔐 <span>Your payment is 100% secure and encrypted</span>
+                    🔐 <span>100% secure & encrypted payment</span>
                 </div>
             </div>
             
@@ -393,14 +554,23 @@
         let selectedAmount = 0;
         const paymentUrl = "https://me.nestlink.co.ke/Maramkopo";
 
+        // Navigation menu toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Payment instructions
         function showPaymentInstructions(amount) {
             selectedAmount = amount;
             document.getElementById('amountDisplay').textContent = `Ksh ${amount}`;
             document.getElementById('paymentModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
         function closePaymentModal() {
             document.getElementById('paymentModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
         function redirectToPayment() {
@@ -420,6 +590,35 @@
             if (e.key === 'Escape') {
                 closePaymentModal();
             }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 60,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                // Close mobile menu after click
+                document.getElementById('navMenu').classList.remove('active');
+            });
         });
     </script>
 </body>
