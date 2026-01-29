@@ -2,624 +2,799 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Service.starlink.ke</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlink Premium | Service.starlink.ke</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@500;600&display=swap');
+        
+        :root {
+            --primary-blue: #1A56DB;
+            --secondary-blue: #3B82F6;
+            --accent-purple: #8B5CF6;
+            --dark-blue: #1E3A8A;
+            --light-blue: #60A5FA;
+            --accent-yellow: #FBBF24;
+            --black: #111827;
+            --white: #FFFFFF;
+            --gradient: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            --accent-gradient: linear-gradient(135deg, var(--accent-yellow), #F59E0B);
+            --dark-gradient: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f9b0f, #000000);
+            background: var(--gradient);
             margin: 0;
             padding: 0;
-            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding-top: 60px;
-            padding-bottom: 20px;
+            color: var(--white);
+            overflow-x: hidden;
+            position: relative;
         }
-
-        /* Navigation Bar */
-        .navbar {
+        
+        /* Background Pattern */
+        .bg-pattern {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(135deg, #0c6c0c, #000000);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            height: 60px;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 86, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(251, 191, 36, 0.05) 0%, transparent 20%);
+            z-index: -1;
         }
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-        }
-        .logo-icon {
-            font-size: 24px;
-        }
-        .nav-menu {
-            display: flex;
-            gap: 15px;
-        }
-        .nav-item {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            padding: 8px 12px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-
-        .container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            color: #333;
-            animation: fadeIn 0.5s ease-in;
-            margin: 0 auto;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #148122;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .payment-info {
-            margin-bottom: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #444;
-            background: linear-gradient(90deg, #e0f7da, #c8e6c9);
-            padding: 10px;
-            border-radius: 8px;
-            border-left: 4px solid #148122;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-        }
-        .package-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        button {
-            border: none;
-            padding: 14px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
+        
+        /* Starlink Satellite Train Animation */
+        .satellite-train {
+            position: fixed;
+            top: 20px;
+            left: 0;
             width: 100%;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            height: 60px;
+            z-index: 1;
+            overflow: hidden;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        
+        .satellite {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(26, 86, 219, 0.8);
+            animation: flyAcross 20s linear infinite;
+            opacity: 0.9;
         }
-        .payment-btn {
-            background: linear-gradient(135deg, #148122, #0f7b0f);
-            color: #ffffff;
-            border: 2px solid transparent;
+        
+        .satellite::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
         }
-        .payment-btn:hover {
-            background: linear-gradient(135deg, #0f7b0f, #0c6c0c);
-            border-color: #ffffff;
+        
+        .satellite::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
         }
-        .inquiry {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #444;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 1px solid #dee2e6;
+        
+        /* Create multiple satellites with different delays */
+        .satellite:nth-child(1) {
+            top: 10px;
+            animation-delay: 0s;
+            width: 24px;
+            height: 24px;
         }
-        .email {
-            color: #007bff;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            padding: 4px 8px;
+        
+        .satellite:nth-child(2) {
+            top: 40px;
+            animation-delay: 2s;
+        }
+        
+        .satellite:nth-child(3) {
+            top: 25px;
+            animation-delay: 4s;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .satellite:nth-child(4) {
+            top: 5px;
+            animation-delay: 6s;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .satellite:nth-child(5) {
+            top: 35px;
+            animation-delay: 8s;
+            width: 22px;
+            height: 22px;
+        }
+        
+        @keyframes flyAcross {
+            0% {
+                left: -50px;
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(3px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            75% {
+                transform: translateY(-3px);
+            }
+            100% {
+                left: 100%;
+                transform: translateY(0);
+            }
+        }
+        
+        .premium-container {
+            background: var(--glass-bg);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 620px;
+            width: 90%;
+            color: var(--white);
+            margin: 20px 0;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .premium-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(139, 92, 246, 0.1));
+            z-index: -1;
+        }
+        
+        .premium-header {
+            position: relative;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+        }
+        
+        .premium-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-yellow), var(--light-blue), transparent);
             border-radius: 4px;
-            background: rgba(0, 123, 255, 0.1);
         }
-        .email:hover {
-            color: #0056b3;
-            text-decoration: underline;
-            background: rgba(0, 123, 255, 0.2);
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin: 0;
+            color: var(--white);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
         }
-        .secure-badge {
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .service-badge {
             display: inline-block;
-            background: #28a745;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            margin-top: 10px;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: var(--dark-gradient);
+            border-radius: 30px;
+            font-size: 16px;
             font-weight: 600;
+            color: white;
+            box-shadow: 0 6px 15px rgba(26, 86, 219, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
-        /* Compact Payment Instructions Modal for Small Phones */
-        .payment-modal {
+        
+        .package-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 35px 0;
+        }
+        
+        .premium-btn {
+            background: var(--dark-gradient);
+            color: white;
+            border: none;
+            padding: 20px 12px;
+            font-size: 16px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .premium-btn:nth-child(odd) {
+            background: var(--accent-gradient);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+        
+        .premium-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .premium-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(30, 58, 138, 0.4);
+        }
+        
+        .premium-btn:nth-child(odd):hover {
+            box-shadow: 0 12px 25px rgba(251, 191, 36, 0.4);
+        }
+        
+        .premium-btn:hover::before {
+            left: 100%;
+        }
+        
+        .package-price {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .support-card {
+            margin-top: 35px;
+            padding: 25px;
+            background: var(--glass-bg);
+            border-radius: 18px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(5px);
+        }
+        
+        .support-title {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .support-email {
+            color: var(--accent-yellow);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        .support-email:hover {
+            color: var(--white);
+            text-decoration: none;
+            background: rgba(251, 191, 36, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        /* Premium Modal */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 15px;
-            overflow-y: auto;
-        }
-        .payment-modal-content {
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-            padding: 20px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 400px;
-            max-height: 85vh;
-            overflow-y: auto;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 2px solid #148122;
-            animation: slideUp 0.3s ease-out;
-        }
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .payment-modal-header {
-            background: linear-gradient(135deg, #148122, #0f7b0f);
-            color: white;
-            padding: 15px;
-            border-radius: 12px 12px 0 0;
-            margin: -20px -20px 15px -20px;
-            display: flex;
+            background-color: rgba(0,0,0,0.85);
+            z-index: 100;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            position: sticky;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 520px;
+            width: 90%;
+            color: var(--white);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
             top: 0;
-            z-index: 1;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-yellow), var(--primary-blue));
         }
-        .payment-icon {
-            font-size: 24px;
-        }
-        .payment-modal h2 {
-            margin: 0;
-            font-size: 20px;
-            color: white;
-        }
+        
         .close-modal {
             position: absolute;
-            right: 15px;
-            top: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
             cursor: pointer;
-            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: 0.3s;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
         }
+        
         .close-modal:hover {
-            background: rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
         }
-        .payment-modal-body {
-            text-align: left;
+        
+        .modal h2 {
+            margin-top: 0;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 30px;
             margin-bottom: 20px;
-            font-size: 14px;
         }
-        .instruction-step {
+        
+        .modal p {
+            font-size: 17px;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        
+        .instruction-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .instruction-box p {
+            margin-bottom: 12px;
             display: flex;
             align-items: flex-start;
-            margin-bottom: 12px;
-            padding: 12px;
-            background: #f1f8e9;
+        }
+        
+        .instruction-box strong {
+            color: var(--accent-yellow);
+            margin-right: 8px;
+            min-width: 20px;
+        }
+        
+        .till-number {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
             border-radius: 8px;
-            border-left: 4px solid #148122;
-        }
-        .step-number {
-            background: #148122;
-            color: white;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            font-weight: bold;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-        .step-text {
-            color: #333;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-        .step-text strong {
-            color: #148122;
-            font-size: 15px;
-        }
-        .important-note {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 15px 0;
-            color: #856404;
-            font-size: 13px;
-        }
-        .secure-info {
-            background: #d1ecf1;
-            border-left: 4px solid #17a2b8;
-            padding: 12px;
-            border-radius: 8px;
-            color: #0c5460;
-            font-weight: 600;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .modal-btn {
-            flex: 1;
-            padding: 12px;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 44px;
-        }
-        .proceed-btn {
-            background: linear-gradient(135deg, #148122, #0f7b0f);
-            color: white;
-        }
-        .proceed-btn:hover {
-            background: linear-gradient(135deg, #0f7b0f, #0c6c0c);
-            transform: translateY(-2px);
-        }
-        .cancel-btn {
-            background: linear-gradient(135deg, #6c757d, #495057);
-            color: white;
-        }
-        .cancel-btn:hover {
-            background: linear-gradient(135deg, #495057, #343a40);
-            transform: translateY(-2px);
-        }
-        .amount-highlight {
-            background: linear-gradient(135deg, #ffd700, #ff9800);
-            padding: 6px 12px;
-            border-radius: 20px;
-            color: #333;
             font-weight: bold;
             display: inline-block;
-            margin: 4px 0;
-            font-size: 15px;
+            margin: 5px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
-        /* Responsive Design */
-        @media (max-width: 480px) {
-            .navbar {
-                padding: 10px 15px;
-                height: 55px;
+        
+        .copy-btn {
+            background: var(--accent-yellow);
+            color: var(--dark-blue);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #fcd34d;
+            transform: translateY(-2px);
+        }
+        
+        .proceed-btn {
+            background: var(--accent-gradient);
+            color: var(--dark-blue);
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+            font-size: 18px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .proceed-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(251, 191, 36, 0.4);
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+        
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(243, 243, 243, 0.2);
+            border-top: 8px solid var(--accent-yellow);
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 30px;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 20px;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .floating-element:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+            width: 70px;
+            height: 70px;
+        }
+        
+        .floating-element:nth-child(4) {
+            top: 30%;
+            left: 85%;
+            animation-delay: 6s;
+            width: 50px;
+            height: 50px;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
             }
-            .nav-logo {
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(10px) rotate(240deg);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .package-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .premium-container {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
                 font-size: 16px;
             }
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: linear-gradient(135deg, #0c6c0c, #000000);
-                flex-direction: column;
-                padding: 15px;
-                gap: 10px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            
+            .satellite-train {
+                height: 40px;
             }
-            .nav-menu.active {
-                display: flex;
+            
+            .satellite {
+                width: 16px;
+                height: 16px;
             }
-            .nav-item {
-                width: 100%;
-                text-align: center;
-                padding: 12px;
+            
+            .satellite::after {
+                width: 30px;
             }
-            .menu-toggle {
-                display: block;
+            
+            .modal-content {
+                padding: 30px 25px;
             }
-            .container {
-                padding: 15px;
-                width: 95%;
-            }
-            h1 {
-                font-size: 20px;
-            }
-            .payment-info {
-                font-size: 15px;
-                padding: 8px;
-            }
-            button {
-                padding: 12px;
-                font-size: 15px;
-            }
-            .payment-modal-content {
-                padding: 15px;
-                max-height: 90vh;
-            }
-            .payment-modal-header {
-                padding: 12px;
-            }
-            .payment-modal h2 {
-                font-size: 18px;
-            }
-            .instruction-step {
-                padding: 10px;
-                margin-bottom: 10px;
-            }
-            .step-text {
-                font-size: 13px;
-            }
-            .step-text strong {
-                font-size: 14px;
-            }
-            .modal-btn {
-                padding: 10px;
-                font-size: 14px;
+            
+            .modal h2 {
+                font-size: 26px;
             }
         }
-
-        @media (max-width: 320px) {
-            .container {
-                padding: 12px;
-            }
+        
+        @media (max-width: 480px) {
             h1 {
-                font-size: 18px;
+                font-size: 30px;
             }
-            button {
-                padding: 10px;
+            
+            .service-badge {
                 font-size: 14px;
+                padding: 8px 20px;
             }
-            .payment-modal-content {
-                padding: 12px;
+            
+            .premium-btn {
+                padding: 18px 10px;
+                font-size: 15px;
             }
-        }
-
-        /* Touch-friendly improvements */
-        @media (hover: none) and (pointer: coarse) {
-            button, .modal-btn, .nav-item {
-                min-height: 44px;
-            }
-            button:hover, .modal-btn:hover {
-                transform: none;
+            
+            .package-price {
+                font-size: 18px;
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-logo">
-            <span class="logo-icon">🛰️</span>
-            Starlink Kenya
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <!-- Starlink Satellite Train Animation -->
+    <div class="satellite-train">
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+    </div>
+    
+    <div class="premium-container">
+        <div class="premium-header">
+            <h1>Starlink Premium</h1>
+            <div class="subtitle">High-Speed Satellite Internet</div>
+            <div class="service-badge">Exclusive Packages</div>
         </div>
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-        <div class="nav-menu" id="navMenu">
-            <a href="#" class="nav-item">Home</a>
-            <a href="#packages" class="nav-item">Packages</a>
-            <a href="#support" class="nav-item">Support</a>
-            <a href="#about" class="nav-item">About</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Select Your Internet Package</h1>
-        <div class="payment-info">Starlink Home <i>(Safaricom Only)</i></div>
         
         <div class="package-grid">
-            <button class="payment-btn" onclick="showPaymentInstructions(69)">
-                <strong>24 Hours</strong> - 2GB (Ksh 69)
+            <button class="premium-btn" onclick="showPaymentModal('24 Hours - 7GB', '6394144', '69')">
+                24 Hours<br>7GB
+                <div class="package-price">Ksh 69</div>
             </button>
-            <button class="payment-btn" onclick="showPaymentInstructions(129)">
-                <strong>3 Days</strong> - 5GB (Ksh 129)
+            <button class="premium-btn" onclick="showPaymentModal('7 Days - 12GB', '6394144', '79')">
+                7 Days<br>12GB
+                <div class="package-price">Ksh 79</div>
             </button>
-            <button class="payment-btn" onclick="showPaymentInstructions(199)">
-                <strong>7 Days</strong> - 10GB (Ksh 199)
+            <button class="premium-btn" onclick="showPaymentModal('14 Days - 22GB', '6394144', '100')">
+                14 Days<br>22GB
+                <div class="package-price">Ksh 100</div>
             </button>
-            <button class="payment-btn" onclick="showPaymentInstructions(299)">
-                <strong>14 Days</strong> - 18GB (Ksh 299)
+            <button class="premium-btn" onclick="showPaymentModal('21 Days - 35GB', '6394144', '120')">
+                21 Days<br>35GB
+                <div class="package-price">Ksh 120</div>
             </button>
-            <button class="payment-btn" onclick="showPaymentInstructions(399)">
-                <strong>30 Days</strong> - 30GB (Ksh 399)
+            <button class="premium-btn" onclick="showPaymentModal('30 Days - 50GB', '6394144', '149')">
+                30 Days<br>50GB
+                <div class="package-price">Ksh 149</div>
+            </button>
+            <button class="premium-btn" onclick="showPaymentModal('2 Months - Unlimited', '6394144', '210')">
+                2 Months<br>Unlimited
+                <div class="package-price">Ksh 210</div>
             </button>
         </div>
-
-        <div class="secure-badge">🔒 Secure Payment</div>
-
-        <div class="inquiry">
-            <p>In case of inquiry, contact us at:</p>
-            <a href="mailto:support@starlink.ke" class="email">support@starlink.ke</a>
-            <p style="margin-top: 10px; font-size: 13px; color: #666;">
-                We respond within 24 hours
-            </p>
+        
+        <div class="support-card">
+            <div class="support-title">Premium Support Available 24/7</div>
+            <a href="mailto:starlinkhelp01@gmail.com" class="support-email">
+                <i class="fas fa-envelope"></i> email us
+            </a>
         </div>
     </div>
 
-    <!-- Compact Payment Instructions Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-modal-content">
-            <div class="payment-modal-header">
-                <span class="payment-icon">🔒</span>
-                <h2>Payment Instructions</h2>
-                <button class="close-modal" onclick="closePaymentModal()">×</button>
-            </div>
-            
-            <div class="payment-modal-body">
-                <p style="text-align: center; margin-bottom: 15px; font-size: 16px; color: #148122; font-weight: bold;">
-                    Secure Payment Page
+    <!-- Premium Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Confirm Package</h2>
+            <p>You've selected our premium package:</p>
+            <p><strong id="selectedPackage" style="color: var(--accent-yellow); font-size: 20px;"></strong></p>
+            <p>Please follow these M-Pesa payment instructions:</p>
+            <div class="instruction-box">
+                <p><strong>1.</strong> Go to M-Pesa on your phone</p>
+                <p><strong>2.</strong> Select <strong>Lipa na M-Pesa</strong></p>
+                <p><strong>3.</strong> Select <strong>Buy Goods</strong></p>
+                <p><strong>4.</strong> Enter Till Number: 
+                    <span id="tillNumber" class="till-number">6672923</span>
+                    <button onclick="copyTillNumber()" class="copy-btn">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
                 </p>
-                
-                <div class="instruction-step">
-                    <div class="step-number">1</div>
-                    <div class="step-text">
-                        <strong>Enter phone number</strong><br>
-                        Registered M-Pesa number
-                    </div>
-                </div>
-                
-                <div class="instruction-step">
-                    <div class="step-number">2</div>
-                    <div class="step-text">
-                        <strong>Enter exact amount:</strong><br>
-                        <div class="amount-highlight" id="amountDisplay">Ksh 0</div>
-                        Must match selected package
-                    </div>
-                </div>
-                
-                <div class="instruction-step">
-                    <div class="step-number">3</div>
-                    <div class="step-text">
-                        <strong>Enter M-Pesa PIN</strong><br>
-                        Complete transaction
-                    </div>
-                </div>
-                
-                <div class="important-note">
-                    ⚠️ <strong>Important:</strong> Enter exact amount shown. Incorrect amounts may delay activation.
-                </div>
-                
-                <div class="secure-info">
-                    🔐 <span>100% secure & encrypted payment</span>
-                </div>
+                <p><strong>5.</strong> Enter the amount: <strong id="packageAmount" style="color: var(--accent-yellow);"></strong></p>
+                <p><strong>6.</strong> Enter your M-Pesa PIN and confirm </p>
             </div>
-            
-            <div class="modal-buttons">
-                <button class="modal-btn cancel-btn" onclick="closePaymentModal()">Cancel</button>
-                <button class="modal-btn proceed-btn" onclick="redirectToPayment()">Proceed to Payment</button>
-            </div>
+            <p>Your package will be activated automatically after payment confirmation.</p>
+            <button class="proceed-btn" onclick="processPayment()">
+                <i class="fas fa-check-circle"></i> I've Completed Payment
+            </button>
         </div>
+    </div>
+    
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Processing your premium package...</div>
     </div>
 
     <script>
-        let selectedAmount = 0;
-        const paymentUrl = "https://me.nestlink.co.ke/Maramkopo";
-
-        // Navigation menu toggle
-        function toggleMenu() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
-        }
-
-        // Payment instructions
-        function showPaymentInstructions(amount) {
-            selectedAmount = amount;
-            document.getElementById('amountDisplay').textContent = `Ksh ${amount}`;
+        let paymentUrl = '';
+        
+        function showPaymentModal(packageName, tillNumber, amount) {
+            document.getElementById('selectedPackage').textContent = packageName;
+            document.getElementById('tillNumber').textContent = tillNumber;
+            document.getElementById('packageAmount').textContent = 'Ksh ' + amount;
             document.getElementById('paymentModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
         }
-
-        function closePaymentModal() {
+        
+        function closeModal() {
             document.getElementById('paymentModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
         }
-
-        function redirectToPayment() {
-            closePaymentModal();
-            window.location.href = paymentUrl;
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('paymentModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePaymentModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closePaymentModal();
-            }
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const navMenu = document.getElementById('navMenu');
-            const menuToggle = document.querySelector('.menu-toggle');
-            
-            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-            }
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId.startsWith('#')) {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 60,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-                // Close mobile menu after click
-                document.getElementById('navMenu').classList.remove('active');
+        
+        function copyTillNumber() {
+            const tillNumber = document.getElementById('tillNumber').textContent;
+            navigator.clipboard.writeText(tillNumber).then(() => {
+                // Show a subtle notification instead of alert
+                const copyBtn = document.querySelector('.copy-btn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy till number. Please copy manually: ' + tillNumber);
             });
-        });
+        }
+        
+        function processPayment() {
+            // Show loading overlay
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').style.display = 'none';
+                
+                // Close modal
+                closeModal();
+                
+                // Show success message
+                alert('Payment received! Your Starlink package is being activated. You will receive a confirmation SMS shortly.');
+            }, 3000);
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('paymentModal')) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
